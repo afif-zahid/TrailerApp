@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useState } from 'react';
+import ReactPlayer from 'react-player';
+import movieTrailer from 'movie-trailer';
 
 function App() {
+  const [vedio , setVedio] = useState("crakk");
+  const [vedioURL , setVedioURL] = useState("https://youtu.be/1sCdl0u9VvI");
+  function handleSearch(){
+    movieTrailer(vedio).then((res) => {
+      setVedioURL(res);
+    });
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        <div className='App'>
+            <div className='search-box'>
+              <input type='text' placeholder='Enter movie name' className='input-bar' onChange={(e) => {setVedio(e.target.value)}} />
+            <button className='button' onClick={() =>{ handleSearch()}} >
+              search
+            </button>
+            </div>
+
+            <ReactPlayer  url={vedioURL} 
+         controls={true} />
+        </div>
+     );
 }
 
 export default App;
